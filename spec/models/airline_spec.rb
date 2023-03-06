@@ -40,6 +40,7 @@ RSpec.describe Airline, type: :model do
     FlightPassenger.create!(flight: flight_3, passenger: chris)
     FlightPassenger.create!(flight: flight_3, passenger: ron)
     FlightPassenger.create!(flight: flight_3, passenger: kid_2)
+    FlightPassenger.create!(flight: flight_3, passenger: tom)
     FlightPassenger.create!(flight: flight_4, passenger: tom)
     FlightPassenger.create!(flight: flight_4, passenger: april)
     FlightPassenger.create!(flight: flight_4, passenger: andy)
@@ -47,13 +48,13 @@ RSpec.describe Airline, type: :model do
   end
 
   describe "#instance methods" do
-    it '#unique_adult_names' do
-      expect(united.unique_adult_names).to eq([andy.name, april.name, ben.name, chris.name, leslie.name, ron.name, tom.name])
-      expect(united.unique_adult_names).to_not eq([andy.name, april.name, ben.name, chris.name, leslie.name, ron.name, tom.name, kid_1.name, kid_2.name, teenager.name])
+    it '#unique_adult_names_by_flight_count' do
+      expect(united.unique_adult_names_by_flight_count).to eq([tom, andy, april, ben, chris, leslie, ron])
+      expect(united.unique_adult_names_by_flight_count).to_not eq([andy, april, ben, chris, leslie, ron, tom, kid_1, kid_2, teenager])
 
       FlightPassenger.create!(flight: flight_4, passenger: jerry)
 
-      expect(united.unique_adult_names).to eq([andy.name, april.name, ben.name, chris.name, jerry.name, leslie.name, ron.name, tom.name])
+      expect(united.unique_adult_names_by_flight_count).to eq([tom, andy, april, ben, chris, jerry, leslie, ron])
     end
   end
 end

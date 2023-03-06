@@ -57,6 +57,17 @@ RSpec.describe 'Airline Show Page', type: :feature do
           expect(page).to_not have_content("#{kid_2.name}")
         end
       end
+
+      it "I see passengers ordered by the number of flights they've had with the airline, then alphabetically" do
+        within("section#adult_passengers") do
+          expect(andy.name).to appear_before(april.name)
+          expect(april.name).to appear_before(tom.name)
+          expect(tom.name).to appear_before(ben.name)
+          expect(ben.name).to appear_before(chris.name)
+          expect(chris.name).to appear_before(leslie.name)
+          expect(leslie.name).to appear_before(ron.name)
+        end
+      end
     end
   end
 end
